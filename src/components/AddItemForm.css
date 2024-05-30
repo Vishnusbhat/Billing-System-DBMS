@@ -1,0 +1,77 @@
+.add-item-form-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-height: fit-content;
+  width: fit-content;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.add-item-form h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.add-item-form label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+.add-item-form input[type="text"],
+.add-item-form input[type="number"] {
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.add-item-form .toggle-label {
+  display: flex;
+  align-items: center;
+}
+
+.add-item-form .toggle-label input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+.add-item-form .submit-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.add-item-form .submit-button:hover {
+  background-color: #45a049;
+}
+
+.success-message,
+.error-message {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+}
+
+.success-message {
+  background-color: #4CAF50;
+}
+
+.error-message {
+  background-color: #f44336;
+}

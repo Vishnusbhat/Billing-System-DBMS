@@ -1,0 +1,12 @@
+/* src/components/Background.css */
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    z-index: -1; /* Ensure the background is behind other content */
+  }
+  

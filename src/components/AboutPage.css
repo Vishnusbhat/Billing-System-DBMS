@@ -1,0 +1,22 @@
+/* src/components/AboutPage.css */
+
+.about-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .about-page h2 {
+    font-size: 24px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-page p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+  }
+  
