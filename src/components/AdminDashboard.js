@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import UserNavbar from './UserNavbar';
 import Background from './Background';
+import InvoiceList from './Invoicelist';
+import StorageList from './StorageList';
 import Modal from 'react-modal';
+import StoreList from './Storelist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileInvoiceDollar, faFileInvoice, faStore, faWarehouse, faPercent, faUsers, faShoppingCart, faChartBar, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './AdminDashboard.css'; // Import CSS for AdminDashboard
+import BillList from './Billlist'; // Import BillList component
+
 
 // Set app element for accessibility
 Modal.setAppElement('#root');
@@ -32,19 +37,19 @@ const AdminDashboard = () => {
         <main>
           {/* Card */}
           <div className="card-container">
-            <div className="add-item-container" onClick={() => openModal('Bills Content')}>
+            <div className="add-item-container" onClick={() => openModal(<BillList />)}> {/* Render BillList component */}
               <FontAwesomeIcon icon={faFileInvoiceDollar} size="3x" />
               <h2>Bills</h2>
             </div>
-            <div className="add-item-container" onClick={() => openModal('Invoices Content')}>
+            <div className="add-item-container" onClick={() => openModal(<InvoiceList />)}>
               <FontAwesomeIcon icon={faFileInvoice} size="3x" />
               <h2>Invoices</h2>
             </div>
-            <div className="add-item-container" onClick={() => openModal('Stores Content')}>
+            <div className="add-item-container" onClick={() => openModal(<StoreList/>)}>
               <FontAwesomeIcon icon={faStore} size="3x" />
               <h2>Stores</h2>
             </div>
-            <div className="add-item-container" onClick={() => openModal('Storage Content')}>
+            <div className="add-item-container" onClick={() => openModal(<StorageList/>)}>
               <FontAwesomeIcon icon={faWarehouse} size="3x" />
               <h2>Storage</h2>
             </div>

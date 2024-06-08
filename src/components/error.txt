@@ -1,0 +1,111 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './Invoicelist.css';
+import { query } from 'express';
+
+const InvoiceList = () => {
+  const [invoice, setInvoice] = useState([]);
+  const [selectedInvoice, setSelectedInvoice] = useState(null);
+  const [invoiceDetails, setInvoiceDetails] = useState([]);
+
+  useEffect(() => {
+    const fetchInvoice = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/invoices');
+        setInvoice(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error('Error fetching invoices:', error);
+      }
+    };
+
+    fetchInvoice();
+  }, []);
+
+  const handleInvoiceClick = async (invoices) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/invoices/${invoices}`);
+      console.log('Selected Bill:', response.data);
+      setSelectedInvoice(response.data[0]);
+      const detailsResponse = await axios.get(`http://localhost:5000/invoices/details/?invoices=${invoices}`);
+      setInvoiceDetails(detailsResponse.data);
+      console.log('Bill Details:', detailsResponse.data);
+    } catch (error) {
+      console.error('Error fetching bill details:', error);
+    }
+  };
+
+  const handleCloseDetail = () => {
+    setSelectedInvoice(null); // Reset selectedBill to hide detailed view
+    setInvoiceDetails([]); // Clear bill details
+  };
+
+  return (
+    <div className="invoice-list-container">
+      {!selectedInvoice && (
+        <div className="inner">
+          <h2>Invoices</h2>
+          <table className="invoice-list">
+            <thead>
+              <tr>
+                <th>Sl No</th>
+                <th>Invoice ID</th>
+                <th>Amount</th>
+                <th>Customer Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {invoice.map((bill) => (
+                <tr key={bill.invoice_id} onClick={() => handleInvoiceClick(bill.invoice_id)}>
+                  <td>{bill.serial_number}</td>
+                  <td>{bill.invoice_id}</td>
+                  <td>{bill.amount}</td>
+                  <td>{bill.customer_name}</td>
+                  {/* <td>{new Date(bill.transaction_date).toLocaleDateString()}</td> */}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {selectedInvoice && (
+        <div className="invoice-details">
+          <button className="close" onClick={handleCloseDetail}>Close</button>
+          <h3>Invoice Details</h3>
+          {selectedInvoice ? (
+            <>
+              <p><strong>Bill ID:</strong> {selectedInvoice.bid}</p>
+              <p><strong>Amount:</strong> {selectedInvoice.amount}</p>
+              <p><strong>Date:</strong> {new Date(selectedInvoice.transaction_date).toLocaleDateString()}</p>
+              <table className="item-details">
+                <thead>
+                  <tr>
+                    <th>Sl No</th>
+                    <th>Invoice ID</th>
+                    <th>Amount</th>
+                    <th>Customer Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {invoiceDetails.map((item) => (
+                    <tr key={item.serial_number}>
+                      <td>{item.serial_number}</td>
+                      <td>{item.item_name}</td>
+                      <td>{item.count}</td>
+                      <td>{item.total}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default InvoiceList;

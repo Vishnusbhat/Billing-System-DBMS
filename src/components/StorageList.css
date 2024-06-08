@@ -1,0 +1,76 @@
+.storage-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 900px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .storage-list-container .inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: max-content;
+  }
+  
+  .storage-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .storage-list th,
+  .storage-list td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .storage-list th {
+    background-color: #f2f2f2;
+  }
+  
+  .storage-list tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .storage-details {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .storage-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .storage-details th,
+  .storage-details td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .storage-details th {
+    background-color: #f2f2f2;
+  }
+  
+  .close {
+    position: relative;
+    left: 3px;
+  }
+  
