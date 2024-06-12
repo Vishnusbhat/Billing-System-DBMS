@@ -25,15 +25,14 @@ const BillList = () => {
       const response = await axios.get(`http://localhost:5000/bills/${bid}`);
       console.log('Selected Bill:', response.data);
       setSelectedBill(response.data[0]);
-      const detailsResponse = await axios.get(`http://localhost:5000/bills/details/?bid=${bid}`, {
-        // params:{bid: bid}
-      });
+      const detailsResponse = await axios.get(`http://localhost:5000/bills/details/${bid}`);
       console.log('Bill Details:', detailsResponse.data);
       setBillDetails(detailsResponse.data);
     } catch (error) {
       console.error('Error fetching bill details:', error);
     }
-  };
+};
+
 
   const handleCloseDetail = () => {
     setSelectedBill(null); // Reset selectedBill to hide detailed view
@@ -51,6 +50,7 @@ const BillList = () => {
                 <th>Bill ID</th>
                 <th>Amount</th>
                 <th>Date</th>
+                <th>Store</th>
               </tr>
             </thead>
             <tbody>
@@ -59,6 +59,7 @@ const BillList = () => {
                   <td>{bill.bid}</td>
                   <td>{bill.amount}</td>
                   <td>{new Date(bill.transaction_date).toLocaleDateString()}</td>
+                  <td>{bill.name}</td>
                 </tr>
               ))}
             </tbody>
@@ -75,6 +76,7 @@ const BillList = () => {
               <p><strong>Bill ID:</strong> {selectedBill.bid}</p>
               <p><strong>Amount:</strong> {selectedBill.amount}</p>
               <p><strong>Date:</strong> {new Date(selectedBill.transaction_date).toLocaleDateString()}</p>
+              <p><strong>Store:</strong> {selectedBill.name}</p>
               <table className="item-details">
                 <thead>
                   <tr>

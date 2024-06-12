@@ -1,34 +1,35 @@
 body {
   overflow-y: hidden;
-  
-}
-main{
-  position: absolute;
-  top: 90px;
 }
 
-.admin-dashboard {
+.manager-dashboard {
   display: flex;
 }
 
-.content {
+.dashboard-content {
   flex: 1; /* Take remaining space */
   padding: 20px;
 }
 
-.admin-card-container {
+.dashboard-card-container {
   display: flex;
   justify-content: center;
-  margin-left: 400px;
-  margin-top:10px; /* Add space between rows */
+  margin-left: 260px;
+  margin-top: 300px; /* Add space between rows */
 }
 
-.card-container:last-child {
-  margin-top: 15px;
-  margin-bottom: 0px;
+.dashboard-heading {
+  position: absolute;
+  top: 120px;
+  left: 400px;
+  font-family: 'Arial', sans-serif; /* Choose a suitable font family */
+  font-size: 78px; /* Adjust font size */
+  font-weight: bold; /* Adjust font weight */
+  color: #2e2727; /* Choose a suitable color */
 }
 
-.add-item-container {
+
+.dashboard-add-item-container {
   height: 250px;
   width: 250px; /* Set width as needed */
   padding: 20px;
@@ -44,23 +45,23 @@ main{
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.add-item-container:hover {
+.dashboard-add-item-container:hover {
   cursor: pointer;
   transform: translateY(-5px); /* Slight lift on hover */
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
 }
 
-.add-item-container h2 {
+.dashboard-add-item-container h2 {
   margin-top: 15px; /* Space between icon and text */
   font-size: 18px; /* Adjust font size as needed */
 }
 
-.add-item-container svg {
+.dashboard-add-item-container svg {
   color: #4CAF50; /* Icon color */
 }
 
 /* Modal styles */
-.Modal {
+.ManagerModal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -81,7 +82,7 @@ main{
   justify-content: center;
 }
 
-.Overlay {
+.ManagerOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -91,7 +92,7 @@ main{
   z-index: 1000;
 }
 
-.close-button-ad {
+.close-button-md {
   background: none;
   color: black;
   border: none;
@@ -101,6 +102,6 @@ main{
   cursor: pointer;
 }
 
-button.close-button:hover {
+.close-button-md:hover {
   color: red;
 }

@@ -1,0 +1,80 @@
+/* Statistics.css */
+
+.statistics-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 900px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .filter-section {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .filter-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .filter-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .filter-item label {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .filter-item select, .filter-item input {
+    flex: 2;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .statistics-section {
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .statistics-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .statistics-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .statistics-list th, .statistics-list td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .statistics-list th {
+    background-color: #f2f2f2;
+  }
+  
+  .statistics-list tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  

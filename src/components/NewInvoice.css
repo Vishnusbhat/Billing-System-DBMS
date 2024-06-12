@@ -1,0 +1,103 @@
+/* NewInvoice.css */
+
+.new-invoice-container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.new-invoice-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.search-bar,
+.customer-details,
+.selected-items,
+.search-results {
+  margin-bottom: 20px;
+}
+
+.search-bar input,
+.customer-details input,
+.new-customer-details input,
+.store-select {
+  width: calc(100% - 110px);
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-bar button,
+.invoice-button,
+.search-results button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-bar button:hover,
+.invoice-button:hover,
+.search-results button:hover {
+  background-color: #0056b3;
+}
+
+.customer-details,
+.new-customer-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-details .react-select__control,
+.new-customer-details .react-select__control {
+  margin-bottom: 10px;
+}
+
+.selected-items table,
+.search-results table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.selected-items table th,
+.selected-items table td,
+.search-results table th,
+.search-results table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.selected-items table th,
+.search-results table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.success-message,
+.error-message {
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+}

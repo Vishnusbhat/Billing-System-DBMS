@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
 import UserNavbar from './UserNavbar';
 import Background from './Background';
 import InvoiceList from './Invoicelist';
@@ -9,16 +8,17 @@ import StoreList from './Storelist';
 import CustomerList from './CustomerList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileInvoiceDollar, faFileInvoice, faStore, faWarehouse, faPercent, faUsers, faShoppingCart, faChartBar, faTimes } from '@fortawesome/free-solid-svg-icons';
-import './AdminDashboard.css'; // Import CSS for AdminDashboard
+import './ManagerDashboard.css'; // Import CSS for ManagerDashboard
 import BillList from './Billlist'; // Import BillList component
 import Statistics from './Statistics';
 import UserList from './UserList';
+import ManagSideBar from './ManagSideBar';
 
 
 // Set app element for accessibility
 Modal.setAppElement('#root');
 
-const AdminDashboard = () => {
+const ManagerDashboard = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
 
@@ -32,47 +32,29 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="admin-dashboard">
+    <div className="manager-dashboard">
       <Background />
-      <Sidebar />
+      <ManagSideBar />
       <UserNavbar /> 
-      <div className="content">
+      <div className="dashboard-content">
         <main>
           {/* Card */}
-          <div className="admin-card-container">
-            <div className="add-item-container" onClick={() => openModal(<BillList />)}> {/* Render BillList component */}
+          <h1 className="dashboard-heading">Welcome, Manager!</h1>
+          {/* New Row */}
+          <div className="dashboard-card-container">
+          <div className="dashboard-add-item-container" onClick={() => openModal(<BillList />)}> {/* Render BillList component */}
               <FontAwesomeIcon icon={faFileInvoiceDollar} size="3x" />
               <h2>Bills</h2>
             </div>
-            <div className="add-item-container" onClick={() => openModal(<InvoiceList />)}>
+            <div className="dashboard-add-item-container" onClick={() => openModal(<InvoiceList />)}>
               <FontAwesomeIcon icon={faFileInvoice} size="3x" />
               <h2>Invoices</h2>
             </div>
-            <div className="add-item-container" onClick={() => openModal(<StoreList/>)}>
-              <FontAwesomeIcon icon={faStore} size="3x" />
-              <h2>Stores</h2>
-            </div>
-            {/* <div className="add-item-container" onClick={() => openModal(<StorageList/>)}>
-              <FontAwesomeIcon icon={faWarehouse} size="3x" />
-              <h2>Storage</h2>
-            </div> */}
-          </div>
-
-          {/* New Row */}
-          <div className="admin-card-container row-2">
-            <div className="add-item-container" onClick={() => openModal(<CustomerList/>)}>
+            <div className="dashboard-add-item-container" onClick={() => openModal(<CustomerList/>)}>
               <FontAwesomeIcon icon={faUsers} size="3x" />
               <h2>Customers</h2>
             </div>
-            <div className="add-item-container" onClick={() => openModal(<UserList/>)}>
-              <FontAwesomeIcon icon={faUsers} size="3x" />
-              <h2>Users</h2>
-            </div>
-            {/* <div className="add-item-container" onClick={() => openModal('Orders Content')}>
-              <FontAwesomeIcon icon={faShoppingCart} size="3x" />
-              <h2>Orders</h2>
-            </div> */}
-            <div className="add-item-container" onClick={() => openModal(<Statistics/>)}>
+            <div className="dashboard-add-item-container" onClick={() => openModal(<Statistics/>)}>
               <FontAwesomeIcon icon={faChartBar} size="3x" />
               <h2>Statistics</h2>
             </div>
@@ -85,10 +67,10 @@ const AdminDashboard = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Content Modal"
-        className="Modal"
-        overlayClassName="Overlay"
+        className="ManagerModal"
+        overlayClassName="ManagerOverlay"
       >
-        <button className="close-button-ad" onClick={closeModal}>
+        <button className="close-button-md" onClick={closeModal}>
           <FontAwesomeIcon icon={faTimes} size="2x" />
         </button>
         <div>{modalContent}</div>
@@ -97,4 +79,4 @@ const AdminDashboard = () => {
   );
 }
 
-export default AdminDashboard;
+export default ManagerDashboard;

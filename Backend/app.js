@@ -14,6 +14,9 @@ app.use('/bills', require('./routes/bills'));
 app.use('/invoices', require('./routes/invoices'));
 app.use('/stores', require('./routes/stores'));
 app.use('/storages', require('./routes/storage'));
+app.use('/customers', require('./routes/customers'));
+app.use('/users', require('./routes/users'));
+app.use('/console', require('./routes/console'));
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

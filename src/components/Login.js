@@ -1,8 +1,7 @@
-// Login.js
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 import './Login.css'; // Import the CSS file
+import axios from 'axios';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -10,15 +9,40 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Use the useNavigate hook instead of useHistory
 
-  const handleLogin = (e) => {
+  const fetchRole = async (username) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users/role/${username}`);
+      console.log(response.data[0].role);
+      if (password !== response.data[0].password){
+        console.log("wrong password!");
+        return null;
+      }
+      return response.data[0].role; // Assuming the response contains the role information
+    } catch (error) {
+      console.error('Error fetching user user:', error);
+      return null; // Return null if there's an error
+    }
+  };
+  
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Perform authentication logic here (e.g., call an API to verify credentials)
-    if (username === 'admin' && password === 'password') {
-      // If authentication is successful, navigate to the admin dashboard
-      navigate('/admin'); // Use navigate function to redirect
+  
+    const userRole = await fetchRole(username);
+    console.log(userRole);
+  
+    if (userRole === ('Admin' || 'admin')) {
+      navigate('/admin');
+    } else if (userRole === ('Manager' || 'manager') ) {
+      navigate('/manager');
+    } else if (userRole === ('user' || 'User')) {
+      navigate('/user');
     } else {
       setError('Invalid username or password');
     }
+  };
+
+  const handleSignUp = () => {
+    navigate('/signup');
   };
 
   return (
@@ -36,6 +60,7 @@ const Login = () => {
         {error && <div className="error-message">{error}</div>}
         <button type="submit">Login</button>
       </form>
+      <button onClick={handleSignUp}>Sign Up</button>
     </div>
   );
 };

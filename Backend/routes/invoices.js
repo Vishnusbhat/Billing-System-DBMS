@@ -3,9 +3,10 @@ const db = require('../db');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-  const { transaction_date, amount, items, customer } = req.body;
+  console.log(req.body);
+  const { amount, items, customer, store } = req.body;
 
-  if (!amount || !items || !Array.isArray(items) || items.length === 0 || !customer) {
+  if (!amount || !items || !Array.isArray(items) || items.length === 0 || !customer || !store) {
     console.error('Invalid request body');
     res.status(400).send('Bad request');
     return;
@@ -20,8 +21,8 @@ router.post('/', (req, res) => {
     }
 
     const CId = result.insertId;
-    const insertInvoiceQuery = 'INSERT INTO invoice (amount, user_id) VALUES (?, ?)';
-    db.query(insertInvoiceQuery, [amount, CId], (err, result) => {
+    const insertInvoiceQuery = 'INSERT INTO invoice (amount, user_id, store) VALUES (?, ?, ?)';
+    db.query(insertInvoiceQuery, [amount, CId, store], (err, result) => {
       if (err) {
         console.error('Error adding invoice:', err);
         res.status(500).send('Server error');
@@ -42,27 +43,32 @@ router.post('/', (req, res) => {
         console.log('Invoice and associated items added successfully');
         res.status(201).send('Invoice created successfully');
       });
+      const insertIntoIC = 'INSERT INTO INVOICE_CUSTOMER VALUES (?, ?)';
+      db.query(insertIntoIC, [IId, CId], (err, result) => {
+      if (err) {
+        console.error('Error adding into invoice_customer', err);
+        res.status(500).send('Server error');
+        return;
+      }
+      console.log('Added into invoice_customer table!');
+      });
+
     });
+
+    
   });
 });
 
-router.get('/details/', (req, res) => {
-  console.log("Query passed: " + req.query.invoices);
-  const billId = req.query.invoices;
+router.get('/details', (req, res) => {
+  console.log("Query passed: " + req.query.Invoiceid);
+  const billId = req.query.Invoiceid;
   const sql = `
-    SELECT 
-      @rownum := @rownum + 1 AS serial_number,
-      ii.invoice_id AS invoice_number,
-      c.name AS customer_name,
-      i.amount
-    FROM item_invoice ii
-    JOIN invoice i ON ii.invoice_id = i.iid
-    JOIN invoice_customer ic ON ii.invoice_id = ic.invoice_id
-    JOIN customer c ON ic.customer_id = c.cid
-    JOIN (SELECT @rownum := 0) r
-    WHERE ii.invoice_id = ?
-    GROUP BY ii.invoice_id, c.name, i.amount;
-
+   
+    SELECT name, count, total 
+FROM invoice 
+JOIN item_invoice ON invoice.iid = item_invoice.invoice_id 
+JOIN items ON item_invoice.item_id = items.iid
+where invoice.iid = ?
   `;
   db.query(sql, [billId], (err, result) => {
     if (err) {
@@ -71,6 +77,7 @@ router.get('/details/', (req, res) => {
       return;
     }
     res.json(result);
+    console.log("selected bills list:");
   });
 });
 
@@ -79,7 +86,7 @@ router.get('/:invoiceId(\\d+)', (req, res) => {
   console.log("Invoice ID:", invoiceId);
 
   const sql = 
-  'SELECT * FROM invoice WHERE iid = ?';
+  'select iid, amount, cid, name, transaction_date, invoice.store from customer join invoice on customer.cid = invoice.user_id WHERE iid = ?';
   db.query(sql, [invoiceId], (err, results) => {
     if (err) {
       console.error('Error fetching invoices:', err);
@@ -97,6 +104,7 @@ router.get('/', (req, res) => {
     ROW_NUMBER() OVER () AS serial_number,
     invoice.iid AS invoice_id,
     invoice.amount,
+    invoice.transaction_date,
     customer.name AS customer_name
   FROM 
     invoice
@@ -110,6 +118,60 @@ router.get('/', (req, res) => {
       return;
     }
     res.json(results);
+  });
+});
+
+//filter
+
+router.get('/filter', (req, res) => {
+  console.log("request params: " + req.query.store);
+  const store = req.query.store;
+  const startDate = req.query.startDate;
+  const endDate = req.query.endDate;
+  const startPrice = req.query.startPrice ? parseInt(req.query.startPrice) : null;
+  const endPrice = req.query.endPrice ? parseInt(req.query.endPrice) : null;
+  let sql = 'SELECT * FROM invoice join customer on invoice.user_id = customer.cid WHERE 1=1';
+  const params = [];
+
+  if (store) {
+      sql += ' AND store = ?';
+      params.push(store);
+  }
+
+  if (startDate) {
+      sql += ' AND transaction_date >= ?';
+      params.push(startDate);
+  }
+
+  if (endDate) {
+      sql += ' AND transaction_date <= ?';
+      params.push(endDate);
+  }
+
+  if (startPrice) {
+      sql += ' AND amount >= ?';
+      params.push(startPrice);
+  }
+
+  if (endPrice) {
+      sql += ' AND amount <= ?';
+      params.push(endPrice);
+  }
+
+  // console.log("params: ", params);
+  // console.log("query: ", sql);
+
+  const formattedQuery = db.format(sql, params);
+  // console.log("Formatted query: ", formattedQuery);
+
+  db.query(formattedQuery, params, (err, results) => {
+      if (err) {
+          console.error('Error fetching bills for filter:', err);
+          res.status(500).send('Server error');
+          return;
+      }
+      res.json(results);
+      // console.log(results);
   });
 });
 

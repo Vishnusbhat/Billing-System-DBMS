@@ -14,6 +14,7 @@ const Statistics = () => {
     endPrice: 1000000,
   });
 
+  // Fetch stores once on component mount
   useEffect(() => {
     const fetchStores = async () => {
       try {
@@ -27,6 +28,7 @@ const Statistics = () => {
     fetchStores();
   }, []);
 
+  // Fetch bills and invoices when filters change
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -132,8 +134,15 @@ const Statistics = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {console.log(bills)} */}
-            
+          {bills.map((bill) => (
+              <tr >
+                <td>{bill.bid}</td>
+                <td>{bill.name}</td>
+                <td>{bill.location}</td>
+                <td>{new Date(bill.transaction_date).toLocaleDateString()}</td>
+                <td>{bill.amount}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
 
@@ -149,7 +158,6 @@ const Statistics = () => {
             </tr>
           </thead>
           <tbody>
-            {console.log(invoices)}
             {invoices.map((invoice) => (
               <tr key={invoice.iid}>
                 <td>{invoice.iid}</td>

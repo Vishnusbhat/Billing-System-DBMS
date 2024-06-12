@@ -1,0 +1,74 @@
+.console-container {
+    min-width: 800px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .console-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .input-container {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .query-input {
+    width: calc(100% - 110px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .query-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .query-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .result-container {
+    margin-top: 10px;
+  }
+  
+  .result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .result-table th,
+  .result-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .result-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .no-result {
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    text-align: center;
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  

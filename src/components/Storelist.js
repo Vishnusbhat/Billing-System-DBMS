@@ -24,9 +24,9 @@ const StoreList = () => {
   const handleStoreClick = async (sid) => {
     try {
       const response = await axios.get(`http://localhost:5000/stores/${sid}`);
-      console.log('Selected Store:', response.data);
+      console.log('Selected Store:', response.data[0]);
       setSelectedStore(response.data[0]);
-      const detailsResponse = await axios.get(`http://localhost:5000/store_details?sid=${sid}`);
+      const detailsResponse = await axios.get(`http://localhost:5000/stores/details/${sid}`);
       setStoreDetails(detailsResponse.data);
       console.log('Store Details:', detailsResponse.data);
     } catch (error) {
@@ -54,7 +54,7 @@ const StoreList = () => {
             </thead>
             <tbody>
               {stores.map((store) => (
-                <tr key={store.sid} onClick={() => handleStoreClick(store.sid)}>
+                <tr key={store.bid} onClick={() => handleStoreClick(store.bid)}>
                   <td>{store.bid}</td>
                   <td>{store.name}</td>
                   <td>{store.location}</td>
@@ -71,25 +71,23 @@ const StoreList = () => {
           <h3>Store Details</h3>
           {selectedStore ? (
             <>
-              <p><strong>Store ID:</strong> {selectedStore.sid}</p>
+              <p><strong>Store ID:</strong> {selectedStore.bid}</p>
               <p><strong>Name:</strong> {selectedStore.name}</p>
               <p><strong>Location:</strong> {selectedStore.location}</p>
               <table className="item-details">
                 <thead>
                   <tr>
-                    <th>Sl No</th>
-                    <th>Item Name</th>
-                    <th>Stock</th>
-                    <th>Price</th>
+                    <th>Bill ID</th>
+                    <th>Amount</th>
+                    <th>Date</th>
                   </tr>
                 </thead>
                 <tbody>
                   {storeDetails.map((item) => (
-                    <tr key={item.serial_number}>
-                      <td>{item.serial_number}</td>
-                      <td>{item.item_name}</td>
-                      <td>{item.stock}</td>
-                      <td>{item.price}</td>
+                    <tr key={item.bid}>
+                      <td>{item.bid}</td>
+                      <td>{item.amount}</td>
+                      <td>{new Date(item.transaction_date).toLocaleDateString()}</td>
                     </tr>
                   ))}
                 </tbody>

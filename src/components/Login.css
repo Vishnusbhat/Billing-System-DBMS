@@ -58,6 +58,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s; /* Add smooth transition for hover effect */
+    width: 100%;
 }
 
 .login-container button:hover {

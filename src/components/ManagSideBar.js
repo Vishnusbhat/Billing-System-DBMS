@@ -5,14 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import Font
 import { faPlus, faList, faInfoCircle, faBox, faTimes } from '@fortawesome/free-solid-svg-icons'; // Import required FontAwesome icons
 import ItemsList from './ItemsList';
 import AddItemForm from './AddItemForm'; // Import the component for "Add Item" form
+import axios from 'axios'; // Import axios for HTTP requests
 import AboutPage from './AboutPage';
 import Box from './Box';
 import NewBill from './Newbill';
 import NewInvoice from './NewInvoice';
-import axios from 'axios';
-import Console from './Console';
 
-const Sidebar = () => {
+const ManagSideBar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); // State for modal
   const [selectedModal, setSelectedModal] = useState(null); // State to track selected modal content
 
@@ -55,6 +54,14 @@ const Sidebar = () => {
             Items List
           </button>
         </li>
+        {/* List item with FontAwesome icon for "About Page" button */}
+        <li>
+          <button className="sidebar-button" onClick={() => openModal('aboutPage')}>
+            <FontAwesomeIcon icon={faInfoCircle} className="icon" />
+            About
+          </button>
+        </li>
+        {/* List item with FontAwesome icon for "Box" button */}
         <li>
           <button className="sidebar-button" onClick={() => openModal('addBill')}>
             <FontAwesomeIcon icon={faBox} className="icon" />
@@ -65,20 +72,6 @@ const Sidebar = () => {
           <button className="sidebar-button" onClick={() => openModal('addInvoice')}>
             <FontAwesomeIcon icon={faBox} className="icon" />
             Add Invoice
-          </button>
-        </li>
-        
-        {/* List item with FontAwesome icon for "About Page" button */}
-        <li>
-          <button className="sidebar-button" onClick={() => openModal('aboutPage')}>
-            <FontAwesomeIcon icon={faInfoCircle} className="icon" />
-            About
-          </button>
-        </li>
-        <li>
-          <button className="sidebar-button" onClick={() => openModal('console')}>
-            <FontAwesomeIcon icon={faInfoCircle} className="icon" />
-            Console
           </button>
         </li>
       </ul>
@@ -95,11 +88,10 @@ const Sidebar = () => {
           {selectedModal === 'boxPage' && <Box />}
           {selectedModal === 'addBill' && <NewBill />}
           {selectedModal === 'addInvoice' && <NewInvoice />}
-          {selectedModal === 'console' && <Console/>}
         </div>
       </Modal>
     </div>
   );
 };
 
-export default Sidebar;
+export default ManagSideBar;

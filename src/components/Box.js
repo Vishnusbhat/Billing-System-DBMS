@@ -11,3 +11,6 @@ const Box = () => {
 }
  
 export default Box;
+
+
+// select * from invoice join item_invoice on item_invoice.invoice_id = invoice.iid 
